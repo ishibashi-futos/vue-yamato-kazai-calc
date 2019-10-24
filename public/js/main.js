@@ -1,3 +1,6 @@
+window.onerror = (message, source, lineno, colno, error) => {
+  console.log(e)
+}
 const rank = [
   {sidesTotal: 80, rank: "SS"},
   {sidesTotal: 120, rank: "S"},
@@ -63,4 +66,15 @@ var app = new Vue({
       this.grid.itemsSource[index].subtotal = updateVal
     }
   }
+})
+
+let sock = new WebSocket("ws://localhost:3001");
+
+sock.addEventListener("open", (e) => {
+  console.log("connect.")
+})
+
+sock.addEventListener("message", (e) => {
+  console.log(e.data)
+  location.reload()
 })
