@@ -5,14 +5,6 @@
   <script src="./lib/vue/js/vue.js"></script>
   <link rel="stylesheet" href="./lib/bootstrap4/css/bootstrap.min.css">
   <script src="./lib/bootstrap4/js/bootstrap-native-v4.min.js"></script>
-  <style>
-  .table > tbody > tr > th,
-  .table > tfoot > tr > th,
-  .table > thead > tr > th {
-    vertical-align: middle;
-    text-align: center;
-  }
-  </style>
   <script>
     var canvas = document.createElement('canvas');
     canvas.width = 16;
@@ -27,36 +19,36 @@
     link.rel = 'shortcut icon';
     link.href = canvas.toDataURL("image/x-icon");
     document.getElementsByTagName('head')[0].appendChild(link);
-</script>
+  </script>
+  <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
   <div id="app" class="container">
     {{message}}
     <table class="table table-striped">
-      <thead>
+      <thead class="sort_asc">
         <tr>
-          <th scope="col" v-for="header in grid.headers">{{header}}</th>
+          <th scope="col" v-for="header in grid.headers" v-bind:id="header + '_h'" v-on:click="sort">{{header}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <tr v-for="(row, i) in grid.itemsSource">
-            <td><input class="form-control" type="text" v-model="row.name"/></td>
-            <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'w-' + i" v-model="row.w" min="1" max="255" step="10"/></td>
-            <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'d-' + i" v-model="row.d" min="1" max="255" step="10"/></td>
-            <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'h-' + i" v-model="row.h" min="1" max="255" step="10"/></td>
-            <td><input class="form-control" type="number" v-bind:value="Number(row.h) + Number(row.w) + Number(row.d)" v-bind:id="'wdh-' + i" readonly/></td>
-            <td>
-              <select class="custom-select mr-sm-2" id="options" multiple size="1">
-                <option v-for="item in options" v-bind:value="item.value">{{item.label}}</option>
-              </select>
-            </td>
-            <td><input class="form-control" v-bind:id="'subtotal-' + i" type="text" v-model="row.subtotal" readonly/></td>
-            <td><input v-bind:id="i" type="button" v-on:click="remove" class="btn btn-danger" value="削除"></td>
-          </tr>
+        <tr v-for="(row, i) in grid.itemsSource">
+          <td><input class="form-control" type="text" v-model="row.name"/></td>
+          <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'w-' + i" v-model="row.W" min="1" max="255" step="10"/></td>
+          <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'d-' + i" v-model="row.D" min="1" max="255" step="10"/></td>
+          <td><input class="form-control" type="number" v-on:change="updateSubTotal" v-bind:id="'h-' + i" v-model="row.H" min="1" max="255" step="10"/></td>
+          <td><input class="form-control" type="number" v-bind:value="Number(row.h) + Number(row.w) + Number(row.d)" v-bind:id="'wdh-' + i" readonly/></td>
+          <td>
+            <select class="custom-select mr-sm-2" id="options" multiple size="1">
+              <option v-for="item in options" v-bind:value="item.value">{{item.label}}</option>
+            </select>
+          </td>
+          <td><input class="form-control" v-bind:id="'subtotal-' + i" type="text" v-model="row.subtotal" readonly/></td>
+          <td><input v-bind:id="i" type="button" v-on:click="remove" class="btn btn-danger" value="削除"></td>
         </tr>
       </tbody>
     </table>
   </div>
+  <script src="js/fw.js"></script>
   <script src="js/main.js"></script>
 </body>
